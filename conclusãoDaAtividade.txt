@@ -1,0 +1,4 @@
+Ontem quase consegui terminar o backend e hoje começaria o front, porem faltava os testes, hoje fiquei o dia debugando o codigo, preciso começar a estudar oconteudo, ainda nem
+tinha começado porem irei fazer isso esse final de semana, consegui aprender bastante coisa nessa atividade, consigo fazer a criptografia e descriptografia e todas as logicas
+de verificação alem das listagens ordenadas e atualização parcial sem ajuda, preciso estudar ainda o middlwere e como fazer o login, pretendo começar nesse final de semana e
+irei me dedicar o maximo para tentar tirar um A

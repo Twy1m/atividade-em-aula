@@ -1,0 +1,123 @@
+### 1. Cadastrar 1° usuario
+POST http://localhost:3000/cliente
+Content-Type: application/json
+
+{
+    "nome": "Jose",
+    "email": "Jose@gmail.com",
+    "senha": "123",
+    "cpf": "12345678912",
+    "endereco": "Rua 1, 123",
+    "telefone": "48999998888"
+}
+
+### 2. Cadastrar 2° usuario
+POST http://localhost:3000/cliente
+Content-Type: application/json
+
+{
+    "nome": "Marcos",
+    "email": "Marcos@gmail.com",
+    "senha": "123",
+    "cpf": "98765432100",
+    "endereco": "Rua 2, 456",
+    "telefone": "48988887777"
+}
+
+### 3. Login Jose
+# @name loginReq
+POST http://localhost:3000/login
+Content-Type: application/json
+
+{
+    "email": "Jose@gmail.com",
+    "senha": "123"
+}
+
+### 4. Rota privada SEM token (esperado: 401 Acesso negado!)
+GET http://localhost:3000/cliente/Jose
+
+### 5. Buscar por nome (esperado: 200)
+GET http://localhost:3000/cliente/Jose
+Authorization: {{loginReq.response.body.token}}
+
+### 6. Atualizar cliente (esperado: 200)
+PATCH http://localhost:3000/cliente/1
+Content-Type: application/json
+Authorization: {{loginReq.response.body.token}}
+
+{
+    "codCliente": 1,
+    "nome": "Jose Silva",
+    "email": "Jose@gmail.com",
+    "senha": "123",
+    "cpf": "12345678912",
+    "endereco": "Rua 1, 123",
+    "telefone": "48999998888"
+}
+
+### 7. Cadastrar veiculo (esperado: 201)
+POST http://localhost:3000/veiculo
+Content-Type: application/json
+Authorization: {{loginReq.response.body.token}}
+
+{
+    "modelo": "modelo1",
+    "marca": "marca1",
+    "placa": "1234",
+    "codigoRastreador": "1234",
+    "idCliente": 1
+}
+
+### 8. Login Marcos
+# @name loginReq
+POST http://localhost:3000/login
+Content-Type: application/json
+
+{
+    "email": "Marcos@gmail.com",
+    "senha": "123"
+}
+
+### 9. Apagar cliente (esperado: 200)
+DELETE http://localhost:3000/cliente/2
+Authorization: {{loginReq.response.body.token}}
+
+### 10. Cadastrar agendamento (esperado: 201)
+POST http://localhost:3000/agendamento
+Content-Type: application/json
+Authorization: {{loginReq.response.body.token}}
+
+{
+    "data": "2026-10-25",
+    "horario": "14:30:00",
+    "servico": "instalação",
+    "idVeiculo": 1,
+    "idCliente": 1
+}
+
+### 11. Agendamento com cliente inexistente (esperado: 404)
+POST http://localhost:3000/agendamento
+Content-Type: application/json
+Authorization: {{loginReq.response.body.token}}
+
+{
+    "data": "2026-10-25",
+    "horario": "14:30:00",
+    "servico": "instalação",
+    "idVeiculo": 1,
+    "idCliente": 999
+}
+
+### 12. Listar agendamentos (esperado: 200)
+GET http://localhost:3000/agendamentos
+Authorization: {{loginReq.response.body.token}}
+
+### 13. Atualizar horario (esperado: 200)
+PATCH http://localhost:3000/agendamento/1
+Content-Type: application/json
+Authorization: {{loginReq.response.body.token}}
+
+{
+    "horario": "16:00:00"
+}
